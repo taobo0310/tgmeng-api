@@ -359,6 +359,10 @@ public class CacheSearchServiceImpl implements ICacheSearchService {
         paramMap.put("keepLatest", "true");
         List<Map<String, Object>> hotList = new ArrayList<>();
         hotList = searchByWord(paramMap).getData();
+        // 客户不要同花顺首页的那个榜单，这里排除一下
+        hotList = hotList.stream()
+                .filter(map -> !"同花顺".equals(map.get("platformName")))
+                .collect(Collectors.toList());
         return ResultTemplateBean.success(hotList);
     }
 

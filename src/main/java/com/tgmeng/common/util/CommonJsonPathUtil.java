@@ -80,6 +80,16 @@ public class CommonJsonPathUtil {
                 if (StrUtil.isNotBlank(selector.getHotScore())) {  // 改这里
                     try {
                         hotScore = itemCtx.read(selector.getHotScore()).toString();  // 改这里
+                        try {
+                            // 同花顺的热门文章里，客户不要热度值小于30的，这里排除一下
+                            if (platform.getPlatformName().equals("同花顺 热门文章")) {
+                                if (Integer.parseInt(hotScore) < 30) {
+                                    continue;
+                                }
+                            }
+                        } catch (Exception e) {
+                            log.info(e.getMessage());
+                        }
                     } catch (Exception e) {
                         hotScore = "";
                     }
@@ -130,7 +140,7 @@ public class CommonJsonPathUtil {
                 } else {
                     sort = i + 1;
                 }
-                if (StrUtil.isBlank(url)){
+                if (StrUtil.isBlank(url)) {
                     url = "https://tgmeng.com";
                 }
                 if (StrUtil.isNotBlank(title) && StrUtil.isNotBlank(url)) {
