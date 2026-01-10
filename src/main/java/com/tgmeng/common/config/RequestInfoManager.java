@@ -1184,7 +1184,7 @@ public class RequestInfoManager {
                 .sortSelector("$.rank")
                 .register();
 
-        addDomConfig("https://10jqka.com.cn")
+        addJsonConfig("https://news.10jqka.com.cn/app/flash/flashnews/v1/list?seq=0&tagId=62857")
                 .requestType(ForestRequestTypeEnum.GET)
                 .platformName("同花顺 快讯 重要")
                 .platformCategory(PlatFormCategoryEnum.TONG_HUA_SHUN.getValue())
@@ -1192,9 +1192,10 @@ public class RequestInfoManager {
                 .interfaceUrl("/api/topsearch/schedule/tonghuashun/kuaixunzhongyao")
                 .hotTitleUrlPrefix("")
                 .addArea()
-                .rootSelector(".space-y-0 > div")
-                .titleSelector("h3")
-                .urlSelector("")
+                .rootSelector("$.data.list")
+                .titleSelector("$.title")
+                .urlSelector("$.url")
+                .hotScoreSelector("$.readAmount")
                 .register();
 
         addDomConfig("https://www.10jqka.com.cn/")
